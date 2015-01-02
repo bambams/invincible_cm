@@ -1,0 +1,32 @@
+# Invincible Countermeasure init.txt
+#
+# Options are:
+#  display_w: sets display width. Valid values are 1024 to 1920
+#  display h: sets height. Valid values are 768 to 1200
+#  vol_music: sets music volume. Valid values are 0 to 100 (music isn't implemented yet).
+#  vol_effect: sets effects volume. Valid values are 0 to 100 
+#  fullscreen: uses a fullscreen window at your current display resolution.
+#              (display_w/h values are ignored). True fullscreen isn't currently 
+#              supported. This mode is recommended unless you have a good reason not
+#              to use it.
+#  special_cursor: uses the game's own mouse cursor instead of your system's.
+#                  (use this if the system's mouse cursor isn't displaying correctly,
+#                  e.g. if clicks are registered in a different place)
+#
+#
+# Example:
+# display_w 1900
+# display_h 1100
+# vol_music 50
+# vol_effect 80
+# fullscreen
+# special_cursor
+
+display_w 1350
+display_h 768
+vol_music 80
+vol_effect 80
+fullscreen
+# special_cursor
+
+# last line (leave this here)
