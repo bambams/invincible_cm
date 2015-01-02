@@ -38,7 +38,8 @@ $(GAME): $(OBJECTS)
 $(LAUNCHER): $(GAME)
 	echo '#!/bin/sh' > $@
 	echo 'set -e' >> $@
-	echo 'cd media' >> $@
+	echo 'dir="$$(dirname "$$0")"' >> $@
+	echo 'cd "$$dir/media"' >> $@
 	echo 'LD_LIBRARY_PATH="$$LD_LIBRARY_PATH:$(ALLEGRO_LIBDIR)"' >> $@
 	echo 'export LD_LIBRARY_PATH' >> $@
 	echo '../$<' >> $@
