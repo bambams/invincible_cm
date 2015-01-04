@@ -12,7 +12,7 @@ ALLEGRO_LIBDIR = $(shell pkg-config --libs-only-L allegro-5 | \
                    sed -re 's/(^|\s)-L/\1/g' -e 's/(^\s+|\s+$$)//g')
 
 CFLAGS = -g3 -Iinclude -Wall $(shell $(PKG_CONFIG) --cflags $(ALLEGRO_LIBS))
-LIBS = $(shell $(PKG_CONFIG) --libs $(ALLEGRO_LIBS))
+LIBS = -lm $(shell $(PKG_CONFIG) --libs $(ALLEGRO_LIBS))
 
 GAME = $(BINDIR)/ic-b2
 HEADERS = $(shell make/list-extension $(INCDIR) h)
