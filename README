@@ -1,0 +1,48 @@
+Invincible Countermeasure is an RTS video game about defending and
+attacking computer systems.
+Copyright (C) 2014 Linley Henzell
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-- 
+
+Disclaimer: As far as I know, this game is the work of Linley Henzell from
+allegro.cc: https://www.allegro.cc/members/id/3963.
+
+The release-beta2-unix branch, including this README and copyright notice,
+are the work of Brandon McCaig (bambams) aiming to assemble a more
+UNIX-like-friendly distribution of the Beta 2 release. These were
+published incrementally into the discussion thread (see below) and
+eventually to a GitHub fork at
+https://github.com/bambams/invincible-countermeasure/.
+
+It is based on the following release files:
+
+623a5d6880cf355d7a22d8d4ad855b21e86cc9ed  /home/bambams/Downloads/IC-beta2-src.zip
+
+The project can be found on the allegro.cc Depot here:
+https://www.allegro.cc/depot/InvincibleCountermeasure
+
+Linley also appears to have created a GitHub repository at
+https://github.com/linleyh/invincible_cm, though it looks like he has yet
+to push any commits to it.
+
+There is also a SourceForge project containing the release at
+http://sourceforge.net/projects/invincible-countermeasure/, but again
+there appear to be no [public] commits.
+
+The release has a discussion thread on allegro.cc here:
+https://www.allegro.cc/forums/thread/614938/1008710#target
+
+# vim: fo+=a nocin
