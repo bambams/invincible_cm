@@ -50,7 +50,7 @@ detect-allegro:
 
 $(GAME): $(OBJECTS)
 	$(MKDIR) $(BINDIR)
-	$(CC) -o $@ $(CFLAGS) $(LIBS) $?
+	$(CC) -o $@ $(CFLAGS) $? $(LIBS)
 
 $(LAUNCHER): $(GAME)
 	echo '#!/bin/sh' > $@
