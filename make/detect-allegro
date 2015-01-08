@@ -10,10 +10,9 @@ if [[ ! -z $ALLEGRO_VERSION ]]; then
 fi;
 
 for f in 5 5.1 5.0; do
-    allegro_flags="$("$pkg_config" --cflags --libs allegro-$f)";
-
-    if [[ ! -z $allegro_flags ]]; then
+    if "$pkg_config" --cflags --libs "allegro-$f" &>/dev/null; then
         echo "$f";
+
         exit 0;
     fi;
 done;
