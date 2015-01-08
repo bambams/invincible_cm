@@ -38,12 +38,15 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(MKDIR) $(OBJDIR)
 	$(CC) -c -o $@ $(CFLAGS) $<
 
-.PHONY: all clean
+.PHONY: all clean detect-allegro
 
 all: $(LAUNCHER)
 
 clean:
 	rm -fR $(BINDIR) $(OBJDIR) $(LAUNCHER)
+
+detect-allegro:
+	$(PKG_CONFIG) --cflags --libs $(ALLEGRO_LIBS)
 
 $(GAME): $(OBJECTS)
 	$(MKDIR) $(BINDIR)
