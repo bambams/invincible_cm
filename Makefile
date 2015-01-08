@@ -15,9 +15,9 @@ ALLEGRO_LIBS_BASE = allegro- allegro_acodec- allegro_audio- allegro_dialog- alle
 ALLEGRO_VERSION = $(shell make/detect-allegro $(PKG_CONFIG))
 
 ifeq (,$(ALLEGRO_VERSION))
-	$(error Failed to detect Allegro version. \
-			Please install Allegro 5. \
-			Make sure pkg-config is properly configured to find it.)
+    $(error Failed to detect Allegro version. \
+            Please install Allegro 5. \
+            Make sure pkg-config is properly configured to find it.)
 endif
 
 ALLEGRO_LIBS=$(ALLEGRO_LIBS_BASE:-=-$(ALLEGRO_VERSION))
