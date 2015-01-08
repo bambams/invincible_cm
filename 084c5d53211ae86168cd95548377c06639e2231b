@@ -1,5 +1,6 @@
-Ignore the "inferior" part. It appears to be standard behavior that is only
-sometimes significant. In other words, it is apparently always best to specify
-libraries at the end (at least with GCC).
+I was wrong about the platform dependence. It appears to be defined
+behavior that is only sometimes significant. In other words, it is
+apparently always best to specify libraries at the end (at least with
+GCC).
 
-http://stackoverflow.com/a/9417334/149184
+Reference: http://stackoverflow.com/a/9417334/149184
