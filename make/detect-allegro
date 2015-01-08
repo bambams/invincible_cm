@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e;
+
+pkg_config="${1:-pkg-config}";
+
+if [[ ! -z $ALLEGRO_VERSION ]]; then
+    echo "$ALLEGRO_VERSION";
+    exit 0;
+fi;
+
+for f in 5 5.1 5.0; do
+    allegro_flags="$("$pkg_config" --cflags --libs allegro-$f)";
+
+    if [[ ! -z $allegro_flags ]]; then
+        echo "$f";
+        exit 0;
+    fi;
+done;
+
+exit 1;

@@ -7,9 +7,23 @@ CC = gcc
 MKDIR = mkdir -p
 PKG_CONFIG = pkg-config
 
-ALLEGRO_LIBS = allegro-5 allegro_acodec-5 allegro_audio-5 allegro_dialog-5 allegro_font-5 allegro_image-5 allegro_primitives-5
-ALLEGRO_LIBDIR = $(shell pkg-config --libs-only-L allegro-5 | \
-                   sed -re 's/(^|\s)-L/\1/g' -e 's/(^\s+|\s+$$)//g')
+# Allegro version detection.
+# To override detection specify ALLEGRO_VERSION in the environment or on
+# the command line.
+
+ALLEGRO_LIBS_BASE = allegro- allegro_acodec- allegro_audio- allegro_dialog- allegro_font- allegro_image- allegro_primitives-
+ALLEGRO_VERSION = $(shell make/detect-allegro $(PKG_CONFIG))
+
+ifeq (,$(ALLEGRO_VERSION))
+	$(error Failed to detect Allegro version. \
+			Please install Allegro 5. \
+			Make sure pkg-config is properly configured to find it.)
+endif
+
+ALLEGRO_LIBS=$(ALLEGRO_LIBS_BASE:-=-$(ALLEGRO_VERSION))
+ALLEGRO_LIBDIR = $(shell \
+        pkg-config --libs-only-L allegro-$(ALLEGRO_VERSION) | \
+        sed -re 's/(^|\s)-L/\1/g' -e 's/(^\s+|\s+$$)//g')
 
 CFLAGS = -g3 -Iinclude -Wall $(shell $(PKG_CONFIG) --cflags $(ALLEGRO_LIBS))
 LIBS = -lm $(shell $(PKG_CONFIG) --libs $(ALLEGRO_LIBS))
