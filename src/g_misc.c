@@ -228,46 +228,67 @@ unsigned int grand(unsigned int max)
  * in function looks in the same directory as the exe, which
  * is not right for Linux which uses the FSH.
  */
-static const char* ic_file(int id, const char* filename)
+static const char* ic_file(int id, const char* internal_path)
 {
-  static char* buffer = NULL;
-#ifdef IC_DATADIR // Have a compiled in data directory
-  ALLEGRO_PATH* path;
-  if (id == ALLEGRO_RESOURCES_PATH) 
-  {
-    path = al_create_path(IC_DATADIR);
-  } else {
-    path = al_get_standard_path(id);
-  }
+  static char* resolved_path = NULL;
+  size_t size;
+  ALLEGRO_PATH* path = NULL, * path_suffix = NULL;
+
+// Have a compiled-in data directory.
+#ifdef IC_DATADIR
+  path = (id == ALLEGRO_RESOURCES_PATH) ?
+      al_create_path(IC_DATADIR) :
+      al_get_standard_path(id);
 #else
-  ALLEGRO_PATH* path = al_get_standard_path(id);
+  path = al_get_standard_path(id);
 #endif
-  ALLEGRO_PATH* f = al_create_path(filename);
-  const char* cstr;
-  if (al_join_paths(path, f)) 
+
+  if (path == NULL)
   {
-    cstr = al_path_cstr(path, ALLEGRO_NATIVE_PATH_SEP);
+    goto catch;
   }
-  else 
+
+  path_suffix = al_create_path(filename);
+
+  if (path_suffix == NULL)
   {
-    cstr = al_path_cstr(f, ALLEGRO_NATIVE_PATH_SEP);
+    goto catch;
   }
-  size_t size = 1 + strlen(cstr);
-  buffer = memcpy(realloc(buffer, size), cstr, size);
+
+  if (al_join_paths(path, path_suffix))
+  {
+    goto catch;
+  }
+
+  resolved_path = al_path_cstr(lhs, ALLEGRO_NATIVE_PATH_SEP);
+  size = 1 + strlen(cstr);
+  resolved_path = realloc(resolved_path, size);
+
+  if (resolved_path == NULL)
+  {
+    goto catch;
+  }
+
+  memcpy(buffer, cstr, size);
+
+finally:
   al_destroy_path(path);
-  al_destroy_path(f);
-  return buffer;
+  al_destroy_path(tmp);
+
+  return resolved_path;
+
+catch:
+  resolved_path = NULL;
+
+  goto end;
 }
 
-const char* ic_resource(const char* filename) 
+const char* ic_resource(const char* filename)
 {
   return ic_file(ALLEGRO_RESOURCES_PATH, filename);
 }
-const char* ic_setting(const char* filename) 
+
+const char* ic_setting(const char* filename)
 {
   return ic_file(ALLEGRO_USER_SETTINGS_PATH, filename);
 }
-
-
-
-
