@@ -25,7 +25,8 @@ ALLEGRO_LIBDIR = $(shell \
         pkg-config --libs-only-L allegro-$(ALLEGRO_VERSION) | \
         sed -re 's/(^|\s)-L/\1/g' -e 's/(^\s+|\s+$$)//g')
 
-CFLAGS = -g3 -Iinclude -Wall $(shell $(PKG_CONFIG) --cflags $(ALLEGRO_LIBS))
+CFLAGS = -g3 -Iinclude -Wall $(shell $(PKG_CONFIG) --cflags $(ALLEGRO_LIBS)) \
+         -DIC_DATADIR=$(DATA)
 LIBS = -lm $(shell $(PKG_CONFIG) --libs $(ALLEGRO_LIBS))
 
 GAME = $(BINDIR)/ic-b2
@@ -33,6 +34,7 @@ HEADERS = $(shell make/list-extension $(INCDIR) h)
 LAUNCHER = ic-b2
 SOURCES = $(shell make/list-extension $(SRCDIR) c)
 OBJECTS = $(shell make/list-objects $(SRCDIR) c $(OBJDIR) o $(SOURCES))
+DATA = \".\"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(MKDIR) $(OBJDIR)

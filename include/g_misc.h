@@ -12,5 +12,6 @@ void print_binary(int num);
 void print_binary8(int num);
 void print_binary32(int num);
 void safe_exit(int exit_value);
-
+const char* ic_resource(const char* filename);
+const char* ic_setting(const char* filename);
 #endif

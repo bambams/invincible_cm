@@ -148,7 +148,7 @@ int load_known_source_file_into_template(int t, const char* file_path)
 
  struct sourcestruct temp_src;
 
- if (!load_source_file(file_path, &temp_src, 0, 0))
+ if (!load_source_file(ic_resource(file_path), &temp_src, 0, 0))
  {
  	fprintf(stdout, "\nFailed: couldn't open default mission file [path: %s] (file not found?).", file_path);
  	return 0; // could call error_call() but this doesn't have to be a fatal error.
