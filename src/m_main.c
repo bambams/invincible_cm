@@ -279,6 +279,7 @@ void init_at_startup(void)
 
    int i;
 
+   al_set_app_name("invincible-countermeasure");
    al_install_keyboard();
    al_install_mouse();
 
@@ -318,6 +319,10 @@ void init_at_startup(void)
    settings.option [OPTION_VOL_EFFECT] = 80;
    settings.option [OPTION_SPECIAL_CURSOR] = 0;
 
+   // Ensure the settings directory exists (mission file gets saved there)
+   ALLEGRO_PATH* spath = al_get_standard_path(ALLEGRO_USER_SETTINGS_PATH);
+   al_make_directory(al_path_cstr(spath, ALLEGRO_NATIVE_PATH_SEP));
+   al_destroy_path(spath);
 // any settings values that could be set in the initfile need to be initialised to default values before read_initfile() is called.
    read_initfile();
 
@@ -436,7 +441,7 @@ void init_at_startup(void)
   load_mission_status_file();
 
 // load the title bitmap
-  title_bitmap = al_load_bitmap("data/images/title.bmp");
+  title_bitmap = al_load_bitmap(ic_resource("data/images/title.bmp"));
 
   if (!title_bitmap)
 		{
@@ -453,7 +458,7 @@ void init_at_startup(void)
 void load_font(int f, const char* font_file_name, int height)
 {
 
-   ALLEGRO_BITMAP *font_bmp = al_load_bitmap(font_file_name);
+  ALLEGRO_BITMAP *font_bmp = al_load_bitmap(ic_resource(font_file_name));
 
    if(!font_bmp)
    {
@@ -495,7 +500,7 @@ void read_initfile(void)
  FILE *initfile;
  char buffer [INITFILE_SIZE];
 
- initfile = fopen("init.txt", "rt");
+ initfile = fopen(ic_setting("init.txt"), "rt");
 
  if (!initfile)
  {

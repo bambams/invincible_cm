@@ -155,7 +155,7 @@ int use_mission_system_file(int mission)
 
  struct sourcestruct mission_src;
 
- if (!load_source_file(mission_file_path, &mission_src, 0, 0))
+ if (!load_source_file(ic_resource(mission_file_path), &mission_src, 0, 0))
  {
     write_line_to_log("Couldn't open mission file (file not found?).", MLOG_COL_ERROR);
     return 0;
@@ -194,7 +194,7 @@ void load_mission_status_file(void)
  FILE *missionfile;
  char buffer [MISSIONFILE_SIZE];
 
- missionfile = fopen("msn.dat", "rb");
+ missionfile = fopen(ic_setting("msn.dat"), "rb");
 
  if (!missionfile)
  {
@@ -261,7 +261,7 @@ void save_mission_status_file(void)
  FILE *file;
 
 // open the file:
- file = fopen("msn.dat", "wb");
+ file = fopen(ic_setting("msn.dat"), "wb");
 
  if (!file)
  {

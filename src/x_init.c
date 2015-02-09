@@ -223,7 +223,7 @@ void load_in_sample(int s, const char* file_name)
  if (settings.sound_on == 0)
   return;
 
- sample [s] = al_load_sample(file_name);
+ sample [s] = al_load_sample(ic_resource(file_name));
 
  if (!sample [s])
  {

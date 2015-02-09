@@ -221,6 +221,52 @@ unsigned int grand(unsigned int max)
 
 */
 
+/* Prepend the correct directory to a filename, so that it can
+ * be found in one of Allegro's standard locations.
+ * If the preprocessor variable IC_DATADIR is defined, look
+ * in that location for resource files. Allegro's built-
+ * in function looks in the same directory as the exe, which
+ * is not right for Linux which uses the FSH.
+ */
+static const char* ic_file(int id, const char* filename)
+{
+  static char* buffer = NULL;
+#ifdef IC_DATADIR // Have a compiled in data directory
+  ALLEGRO_PATH* path;
+  if (id == ALLEGRO_RESOURCES_PATH) 
+  {
+    path = al_create_path(IC_DATADIR);
+  } else {
+    path = al_get_standard_path(id);
+  }
+#else
+  ALLEGRO_PATH* path = al_get_standard_path(id);
+#endif
+  ALLEGRO_PATH* f = al_create_path(filename);
+  const char* cstr;
+  if (al_join_paths(path, f)) 
+  {
+    cstr = al_path_cstr(path, ALLEGRO_NATIVE_PATH_SEP);
+  }
+  else 
+  {
+    cstr = al_path_cstr(f, ALLEGRO_NATIVE_PATH_SEP);
+  }
+  size_t size = 1 + strlen(cstr);
+  buffer = memcpy(realloc(buffer, size), cstr, size);
+  al_destroy_path(path);
+  al_destroy_path(f);
+  return buffer;
+}
+
+const char* ic_resource(const char* filename) 
+{
+  return ic_file(ALLEGRO_RESOURCES_PATH, filename);
+}
+const char* ic_setting(const char* filename) 
+{
+  return ic_file(ALLEGRO_USER_SETTINGS_PATH, filename);
+}
 
 
 
